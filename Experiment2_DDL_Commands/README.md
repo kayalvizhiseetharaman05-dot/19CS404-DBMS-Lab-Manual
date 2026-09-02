@@ -104,124 +104,178 @@ CREATE TABLE Table_Name (
 ```
 
 **Question 1**
---
--- Paste Question 1 here
+```  
+   Create a table named Orders with the following columns:
+   OrderID as INTEGER OrderDate as TEXT CustomerID as INTEGER
+```
 
-```sql
--- Paste your SQL code below for Question 1
+```
+create table Orders(OrderID INTEGER,OrderDate TEXT,CustomerID INTEGER);
+select * from Orders
 ```
 
 **Output:**
 
-![Output1](output.png)
+<img width="1227" height="388" alt="image" src="https://github.com/user-attachments/assets/0542b3c4-bf10-4ac5-ac88-4d1503a65220" />
+
 
 **Question 2**
----
--- Paste Question 2 here
 
-```sql
--- Paste your SQL code below for Question 2
+ ```
+Write an SQL query to add two new columns, first_name and last_name, to the table employee. Both columns should have a data type of varchar(50).
+```
+
+
+```
+alter table employee add column first_name varchar(50);
+alter table employee add column last_name varchar(50); 
 ```
 
 **Output:**
 
-![Output2](output.png)
+<img width="1182" height="306" alt="image" src="https://github.com/user-attachments/assets/14ef3dd1-32bd-4af8-a134-2c9f0fad9344" />
 
 **Question 3**
----
--- Paste Question 3 here
+```
+Create a table named Department with the following constraints:
+DepartmentID as INTEGER should be the primary key.
+DepartmentName as TEXT should be unique and not NULL.
+Location as TEXT.
+```
 
-```sql
--- Paste your SQL code below for Question 3
+```
+Create table Department( DepartmentID Integer Not null primary key,DepartmentName Text Not null Unique ,Location Text);
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="1275" height="298" alt="image" src="https://github.com/user-attachments/assets/028ef638-50f9-4a34-bacb-eac2e9778e21" />
+
 
 **Question 4**
----
--- Paste Question 4 here
+```
+Insert a customer with CustomerID 301, Name Michael Jordan, Address 123 Maple St, City Chicago, and ZipCode 60616 into the Customers table.
 
-```sql
--- Paste your SQL code below for Question 4
+```
+
+```
+Insert into Customers(CustomerID,Name,Address,City,ZipCode) values(301,'Michael Jordan','123 Maple St','Chicago','60616');
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="1211" height="226" alt="image" src="https://github.com/user-attachments/assets/2a5be61a-009c-4979-9549-6d27ab9efdb6" />
+
 
 **Question 5**
----
--- Paste Question 5 here
+```
+Create a new table named orders with the following specifications:
+ord_id as TEXT with a length of 4.
+item_id as TEXT.
+ord_date as DATE.
+ord_qty as INTEGER.
+cost as INTEGER.
+The primary key is a composite key consisting of item_id and ord_date.
+ord_id and item_id should not accept NULL
+```
 
-```sql
--- Paste your SQL code below for Question 5
+```Create table orders(ord_id text not null 
+check(length(ord_id)<=4),item_id text not null,ord_date date,ord_qty integer,cost integer,Primary key(item_id,ord_date));
 ```
 
 **Output:**
 
-![Output5](output.png)
+<img width="1177" height="291" alt="image" src="https://github.com/user-attachments/assets/37cfc85c-f4f4-4d56-8227-a4a57634b02a" />
+
 
 **Question 6**
----
--- Paste Question 6 here
+```
+Create a table named Shipments with the following constraints:
+ShipmentID as INTEGER should be the primary key.
+ShipmentDate as DATE.
+SupplierID as INTEGER should be a foreign key referencing Suppliers(SupplierID).
+OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
+```
 
-```sql
--- Paste your SQL code below for Question 6
+```
+Create table Shipments(ShipmentID Integer not null Primary key,ShipmentDate Date,SupplierID Integer,OrderId Integer,Foreign key(SupplierID) references Suppliers(SupplierID),Foreign key(OrderId) references Orders(OrderID));
 ```
 
 **Output:**
 
-![Output6](output.png)
+<img width="1228" height="255" alt="image" src="https://github.com/user-attachments/assets/231477c4-96ea-4ee1-997c-343b5248d64d" />
+
 
 **Question 7**
----
--- Paste Question 7 here
+```
+Insert all employees from Former_employees into Employee
 
-```sql
--- Paste your SQL code below for Question 7
+Table attributes are EmployeeID, Name, Department, Salary
+```
+
+```
+Insert into Employee(EmployeeID,Name,Department,Salary) select EmployeeId,Name,Department,Salary from Former_employees;
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="1197" height="293" alt="image" src="https://github.com/user-attachments/assets/756998ed-396b-40eb-934b-f0343498faec" />
+
 
 **Question 8**
----
--- Paste Question 8 here
-
-```sql
--- Paste your SQL code below for Question 8
+```
+Write a SQL Query to Rename attribute "name" to "first_name" and add mobilenumber as number ,DOB as Date,State as varchar(30) in the table Companies.
+```
+```
+alter table Companies rename column name to first_name;
+alter table Companies add column mobilenumb number;
+alter table Companies add column DOB Date; 
+alter table Companies add column State varchar(30);
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="1208" height="406" alt="image" src="https://github.com/user-attachments/assets/8be417e6-73b5-4ee6-a24c-ccc77fac917b" />
+
 
 **Question 9**
----
--- Paste Question 9 here
-
-```sql
--- Paste your SQL code below for Question 9
+```
+Create a new table named item with the following specifications and constraints:
+item_id as TEXT and as primary key.
+item_desc as TEXT.
+rate as INTEGER.
+icom_id as TEXT with a length of 4.
+icom_id is a foreign key referencing com_id in the company table.
+The foreign key should cascade updates and deletes.
+item_desc and rate should not accept NULL.
+```
+```
+create table item(item_id text not null primary key,
+item_desc text not null,
+rate integer not null,
+icom_id text check (length(icom_id)=4),
+Foreign key(icom_id) references company(com_id) on update cascade on delete cascade
+);
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="1230" height="368" alt="image" src="https://github.com/user-attachments/assets/162ceb7d-6258-46f5-b52f-d7826eae117f" />
+
 
 **Question 10**
----
--- Paste Question 10 here
+<img width="682" height="220" alt="image" src="https://github.com/user-attachments/assets/94d23c05-bd94-4eb8-86a4-f3d7db7aeb0a" />
 
-```sql
--- Paste your SQL code below for Question 10
+
+```
+Insert into Customers(ID,NAME,AGE,ADDRESS,SALARY) values (1,'Ramesh','32','Ahmedabad','2000'),
+(2,'Khilan','25','Delhi','1500'),(3,'Kaushik','23','Kota','2000');
 ```
 
 **Output:**
 
-![Output10](output.png)
+<img width="1197" height="282" alt="image" src="https://github.com/user-attachments/assets/08cdcaa4-f466-465d-911c-3b767ab2f44c" />
+
 
 
 ## RESULT
