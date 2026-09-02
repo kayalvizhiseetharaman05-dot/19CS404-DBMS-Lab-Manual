@@ -33,6 +33,21 @@ END;
 **Expected Output:**
 - A new entry is added to the `employee_log` table each time a new record is inserted into the `employees` table.
 
+## Program :
+```
+CREATE OR REPLACE TRIGGER trg_log_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log (emp_id, emp_name)
+    VALUES (:NEW.emp_id, :NEW.emp_name);
+END;
+/
+```
+## Result:
+<img width="617" height="264" alt="image" src="https://github.com/user-attachments/assets/bb53bf1e-7d56-4461-aa12-889b7dcf3d3e" />
+
+
 ---
 
 ## 2. Write a trigger to prevent deletion of records from a sensitive table.
