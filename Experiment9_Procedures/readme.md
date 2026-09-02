@@ -60,16 +60,19 @@ Key Differences:
 - Use `DBMS_OUTPUT.PUT_LINE` to display the result.
 - Call the procedure with a number as input.
 
-**Expected Output:**  
-Square of 6 is 36
-
-**Program:**
+### PROGRAM
 ```
-CREATE OR REPLACE PROCEDURE find_square (p_num IN NUMBER) IS
-    v_square NUMBER;
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE find_square (
+    n IN NUMBER
+)
+IS
+    square NUMBER;
 BEGIN
-    v_square := p_num * p_num;
-    DBMS_OUTPUT.PUT_LINE('Square of ' || p_num || ' is ' || v_square);
+    square := n * n;
+
+    DBMS_OUTPUT.PUT_LINE('Square of ' || n || ' is ' || square);
 END;
 /
 
@@ -79,9 +82,11 @@ END;
 /
 ```
 
-**Result:**
+**Expected Output:**  
+Square of 6 is 36
+<img width="449" height="146" alt="image" src="https://github.com/user-attachments/assets/688849ef-4a40-4657-a835-c26778034979" />
 
-<img width="568" height="257" alt="image" src="https://github.com/user-attachments/assets/2850bcc7-021a-47d9-861c-a24b5ebefaf8" />
+
 
 ---
 
@@ -94,34 +99,37 @@ END;
 - Return the result using the `RETURN` statement.
 - Call the function using a `SELECT` statement or in an anonymous block.
 
+### PROGRAM
+```
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION get_factorial (
+    n IN NUMBER
+)
+RETURN NUMBER
+IS
+    fact NUMBER := 1;
+    i NUMBER := 1;
+BEGIN
+    WHILE i <= n LOOP
+        fact := fact * i;
+        i := i + 1;
+    END LOOP;
+
+    RETURN fact;
+END;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(
+        'Factorial of 5 is ' || get_factorial(5)
+    );
+END;
+/
+```
 **Expected Output:**  
 Factorial of 5 is 120
-
-**Program:**
-```
-CREATE OR REPLACE FUNCTION get_factorial (p_num IN NUMBER) RETURN NUMBER IS
-    v_fact NUMBER := 1;
-BEGIN
-    FOR i IN 1..p_num LOOP
-        v_fact := v_fact * i;
-    END LOOP;
-    RETURN v_fact;
-END;
-/
-
-DECLARE
-    v_num NUMBER := 5;
-    v_result NUMBER;
-BEGIN
-    v_result := get_factorial(v_num);
-    DBMS_OUTPUT.PUT_LINE('Factorial of ' || v_num || ' is ' || v_result);
-END;
-/
-```
-
-**Result:**
-
-<img width="711" height="393" alt="image" src="https://github.com/user-attachments/assets/c2366f8d-2f12-41c2-8851-5b902f96e29a" />
+<img width="445" height="163" alt="image" src="https://github.com/user-attachments/assets/304ff015-514c-4f01-9f32-0a31f1327748" />
 
 ---
 
@@ -133,17 +141,19 @@ END;
 - Use the `MOD` function to check if the number is divisible by 2.
 - Display whether it is Even or Odd using `DBMS_OUTPUT.PUT_LINE`.
 
-**Expected Output:**  
-12 is Even
-
-**Program:**
+### PROGRAM
 ```
-CREATE OR REPLACE PROCEDURE check_even_odd (p_num IN NUMBER) IS
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE check_even_odd (
+    n IN NUMBER
+)
+IS
 BEGIN
-    IF MOD(p_num, 2) = 0 THEN
-        DBMS_OUTPUT.PUT_LINE(p_num || ' is Even');
+    IF MOD(n, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(n || ' is Even');
     ELSE
-        DBMS_OUTPUT.PUT_LINE(p_num || ' is Odd');
+        DBMS_OUTPUT.PUT_LINE(n || ' is Odd');
     END IF;
 END;
 /
@@ -154,9 +164,9 @@ END;
 /
 ```
 
-**Result:**
-
-<img width="621" height="360" alt="image" src="https://github.com/user-attachments/assets/0ea26305-9679-43c3-b450-bc3d796044cf" />
+**Expected Output:**  
+12 is Even
+<img width="452" height="158" alt="image" src="https://github.com/user-attachments/assets/4fc6f16a-f54b-435f-9455-33a587842f5e" />
 
 
 ---
@@ -170,38 +180,40 @@ END;
 - Return the reversed number.
 - Call the function and display the output.
 
+### PROGRAM
+```
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION reverse_number (
+    n IN NUMBER
+)
+RETURN NUMBER
+IS
+    num NUMBER := n;
+    rev NUMBER := 0;
+    digit NUMBER;
+BEGIN
+    WHILE num > 0 LOOP
+        digit := MOD(num, 10);
+        rev := rev * 10 + digit;
+        num := TRUNC(num / 10);
+    END LOOP;
+
+    RETURN rev;
+END;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(
+        'Reversed number of 1234 is ' || reverse_number(1234)
+    );
+END;
+/
+```
+
 **Expected Output:**  
 Reversed number of 1234 is 4321
-
-**Program:**
-```
-CREATE OR REPLACE FUNCTION reverse_number (p_num IN NUMBER) RETURN NUMBER IS
-    v_temp NUMBER := p_num;
-    v_rev NUMBER := 0;
-    v_rem NUMBER;
-BEGIN
-    WHILE v_temp > 0 LOOP
-        v_rem := MOD(v_temp, 10);
-        v_rev := (v_rev * 10) + v_rem;
-        v_temp := TRUNC(v_temp / 10);
-    END LOOP;
-    RETURN v_rev;
-END;
-/
-
-DECLARE
-    v_num NUMBER := 1234;
-    v_result NUMBER;
-BEGIN
-    v_result := reverse_number(v_num);
-    DBMS_OUTPUT.PUT_LINE('Reversed number of ' || v_num || ' is ' || v_result);
-END;
-/
-```
-
-**Result:**
-
-<img width="598" height="422" alt="image" src="https://github.com/user-attachments/assets/35b3f1ef-c1ad-465f-bc94-6319acb64077" />
+<img width="453" height="155" alt="image" src="https://github.com/user-attachments/assets/b27b4715-57d0-4756-8a16-d9de0f73e552" />
 
 ---
 
@@ -213,21 +225,24 @@ END;
 - Use a loop from 1 to 10 to multiply the input number.
 - Display the multiplication results using `DBMS_OUTPUT.PUT_LINE`.
 
-**Expected Output:**  
-Multiplication table of 5:  
-5 x 1 = 5  
-5 x 2 = 10  
-5 x 3 = 15  
-...  
-5 x 10 = 50
-
-**Program:**
+### PROGRAM
 ```
-CREATE OR REPLACE PROCEDURE print_table (p_num IN NUMBER) IS
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE print_table (
+    n IN NUMBER
+)
+IS
+    i NUMBER := 1;
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || p_num || ':');
-    FOR i IN 1..10 LOOP
-        DBMS_OUTPUT.PUT_LINE(p_num || ' x ' || i || ' = ' || (p_num * i));
+    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || n || ':');
+
+    WHILE i <= 10 LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            n || ' x ' || i || ' = ' || (n * i)
+        );
+
+        i := i + 1;
     END LOOP;
 END;
 /
@@ -238,9 +253,16 @@ END;
 /
 ```
 
-**Result:**
+**Expected Output:**  
+Multiplication table of 5:  
+5 x 1 = 5  
+5 x 2 = 10  
+5 x 3 = 15  
+...  
+5 x 10 = 50
 
-<img width="555" height="447" alt="image" src="https://github.com/user-attachments/assets/9a69d228-8ca7-457e-b9d6-8cb5ea72f66c" />
+<img width="515" height="248" alt="image" src="https://github.com/user-attachments/assets/d4942b70-0995-478c-ab4a-73f78cac5aff" />
+
 
 
 ## RESULT
